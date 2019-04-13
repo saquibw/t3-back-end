@@ -7,18 +7,20 @@ const bodyParser = require('body-parser')
 app.use(cors())
 app.use(bodyParser.json())
 
-var db = '';
+var db = [];
 
 
 app.post('/api/saveData', (req, res) => {
-  
-  db += '\n' + req.body.status;
-  console.log(db);
+  db.push(req.body.status);
   res.send(db);
 })
 
-// app.get('/api/getData', () => {
+app.delete('/api/deleteData', (req, res) => {
+  db = [];
+})
 
-// })
+app.get('/api/getData', (req, res) => {
+  res.send(db);
+})
 
 app.listen(port, () => console.log(`Tic-tac-toe app listening on port ${port}!`))
